@@ -1,0 +1,12 @@
+.button {
+  background-color: #def1ed;
+  border-radius: 6px;
+  color: cadetblue;
+  padding: 6px 12px;
+}
+
+.passwordbox {
+  align-content: center;
+  background: rgb(235, 235, 235);
+  padding: 24px;
+}
