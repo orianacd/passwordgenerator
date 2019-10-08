@@ -1,4 +1,4 @@
-var password = [""];
+var password = [];
 var passwordLength = prompt("What is your password length?");
 var isLettersLower = confirm("Do you want lower case letters?");
 var lettersLower = [
@@ -66,31 +66,34 @@ var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 /* defined function*/
 //THIS IS BIG BOI FUNCTION
 function pwGen() {
-  for (i = 0; i < passwordLength; i++);
-  if (isSymbols === true && i === 0) {
-    var randomSymbols = Math.floor(Math.random() * symbols.length);
-    password.push(symbols[randomSymbols]);
-    //password = password + symbols[randomSymbol];
-  }
-  if (isNumbers === true && i === 1) {
-    var randomNumbers = Math.floor(Math.random() * numbers.length);
-    password.push(numbers[randomNumbers]);
-  }
-  if (isLettersLower === true && i === 2) {
-    var randomLettersLower = Math.floor(Math.random() * lettersLower.length);
-    password.push(lettersLower[randomLettersLower]);
-  }
-  if (isLettersUpper === true && i === 3) {
-    var randomLettersUpper = Math.floor(Math.random() * lettersUpper.length);
-    password.push(lettersUpper[randomLettersUpper]);
-  } else {
-    dumbalert = confirm("Must select something, dumb dumb!");
-    pwGen();
-  }
-}
+  for (i = 0; i < passwordLength; i++) {
+    if (isSymbols === true && i === 0) {
+      var randomSymbols = Math.floor(Math.random() * symbols.length);
+      password.push(symbols[randomSymbols]);
+      console.log(password);
 
-newPassShuffle = shuffle(password); //shuffle passed array
-passwordBox.textContent = password.join(""); //turns array of single vaslues into one string smushed together
+      //password = password + symbols[randomSymbol];
+    }
+    if (isNumbers === true && i === 1) {
+      var randomNumbers = Math.floor(Math.random() * numbers.length);
+      password.push(numbers[randomNumbers]);
+      console.log(password);
+    }
+    if (isLettersUpper === true && i === 2) {
+      var randomLettersUpper = Math.floor(Math.random() * lettersUpper.length);
+      password.push(lettersUpper[randomLettersUpper]);
+      console.log(password);
+    } else {
+      var randomLettersLower = Math.floor(Math.random() * lettersLower.length);
+      password.push(lettersLower[randomLettersLower]);
+      console.log(password);
+      //pwGen();
+    }
+  }
+  newPassShuffle = shuffle(password); //shuffle passed array
+  console.log(newPassShuffle);
+  passwordBox.textContent = password.join("");
+}
 
 function shuffle(array) {
   var currentIndex = array.length,
