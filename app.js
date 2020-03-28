@@ -1,110 +1,12 @@
-var password = [];
-var passwordLength = prompt("What is your password length?");
-var isLettersLower = confirm("Do you want lower case letters?");
-var lettersLower = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z"
-];
-var isLettersUpper = confirm("Do you want upper case letters?");
-var lettersUpper = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z"
-];
-var isSymbols = confirm("Do you want symbols?");
-var symbols = ["!", "@", "#", "$", "&"];
-var isNumbers = confirm("Do you want numbers?");
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-/* defined function*/
-//THIS IS BIG BOI FUNCTION
-function pwGen() {
-  for (i = 0; i < passwordLength; i++) {
-    if (isSymbols === true && i === 0) {
-      var randomSymbols = Math.floor(Math.random() * symbols.length);
-      password.push(symbols[randomSymbols]);
-      console.log(password);
-
-      //password = password + symbols[randomSymbol];
-    }
-    if (isNumbers === true && i === 1) {
-      var randomNumbers = Math.floor(Math.random() * numbers.length);
-      password.push(numbers[randomNumbers]);
-      console.log(password);
-    }
-    if (isLettersUpper === true && i === 2) {
-      var randomLettersUpper = Math.floor(Math.random() * lettersUpper.length);
-      password.push(lettersUpper[randomLettersUpper]);
-      console.log(password);
-    } else {
-      var randomLettersLower = Math.floor(Math.random() * lettersLower.length);
-      password.push(lettersLower[randomLettersLower]);
-      console.log(password);
-      //pwGen();
-    }
-  }
-  newPassShuffle = shuffle(password); //shuffle passed array
-  console.log(newPassShuffle);
-  passwordBox.textContent = password.join("");
-}
-
+//shuffles a passed array 
 function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there elements to shuffle, do this
   while (0 !== currentIndex) {
     // Pick an element in the index
     randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex = 1;
+    currentIndex -= 1;
     // swaps element it with the current element
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
@@ -113,15 +15,9 @@ function shuffle(array) {
   return array;
 }
 
-//var randomNumber = Math.floor(Math.random() * letters.length);
-//passwordBox.innerHTML = letters[randomNumber];
-
-//change this pw into a dynamic random pw
-//document.write(password);
-
 //copy text inside passphrase box to clipboard function
 function copyPass() {
-  var str = document.getElementById("newPassGox").innerHTML;
+  var str = document.getElementById("newPassBox").innerHTML;
   function listener(e) {
     e.clipboardData.setData("text/html", str);
     e.clipboardData.setData("text/plain", str);
@@ -131,3 +27,37 @@ function copyPass() {
   document.execCommand("copy");
   document.removeEventListener("copy", listener);
 }
+//password generation function
+function genPass() {
+  var newPass = [];
+  var userPromptLength = document.getElementById('input').value;
+  var letterSetUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  var letterSetLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  var numSet = ['1', '2', '3', '5', '6', '7', '8', '9', '0'];
+  var specSet = ['!', '@', '$', '&', '~'];
+
+  if (userPromptLength < 8 || userPromptLength > 128) {
+    newPassBox.textContent = '_CAUGHT ERROR - CHOOSE A VALUE BETWEEN |8| AND |128|>'; //error message displays in newPassBox
+  } else {
+    for (i = 0; i < userPromptLength; i++) {
+      if (document.getElementById('chkSpec').checked === true && i === 0) { //checks value of chkSpec checkbox
+        // inject symbol
+        var randSpec = Math.floor(Math.random() * specSet.length); //random character from speSet Array
+        newPass.push(specSet[randSpec]);
+      } if (document.getElementById('chkNum').checked === true && i === 1) { //checks value of chkNum checkbox
+        //inject special character
+        var randNum = Math.floor(Math.random() * numSet.length); //random number from numSet Array
+        newPass.push(numSet[randNum]);
+      } if (document.getElementById('chkUpper').checked === true && i === 2) {
+        // inject uppercase letter
+        var randUpper = Math.floor(Math.random() * letterSetUpper.length); //random letter from letterSetUpper Array
+        newPass.push(letterSetUpper[randUpper]);
+      } else {
+        var randLower = Math.floor(Math.random() * letterSetLower.length); //random letters from letterSetLower Array
+        newPass.push(letterSetLower[randLower]);
+      }
+    };
+    newPassShuffle = shuffle(newPass); //shuffle passed array
+    newPassBox.textContent = newPass.join(''); //turns array of single vaslues into one string smushed together
+  }
+};
